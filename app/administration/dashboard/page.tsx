@@ -6,8 +6,8 @@ import { CyberBackground } from '@/components/background-fx'
 import { DashboardClient } from '@/components/admin/dashboard-client'
 import { LogOut } from 'lucide-react'
 
+export const runtime = 'edge'
 export const metadata = { title: 'Tableau de bord — SANTANA FAMILY' }
-export const dynamic = 'force-dynamic'
 
 export default async function DashboardPage() {
   if (!(await isAdminAuthenticated())) {
