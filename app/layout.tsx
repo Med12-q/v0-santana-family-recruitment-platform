@@ -1,4 +1,3 @@
-import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { Orbitron, Rajdhani, Geist_Mono } from 'next/font/google'
 import './globals.css'
@@ -23,7 +22,6 @@ export const metadata: Metadata = {
   title: 'SANTANA FAMILY — Les Démons de la Terreur',
   description:
     "Plateforme de recrutement officielle de la SANTANA FAMILY. L'élite ne se rejoint pas. Elle se mérite.",
-  generator: 'v0.app',
 }
 
 export const viewport: Viewport = {
@@ -44,7 +42,6 @@ export default function RootLayout({
     >
       <body className="font-sans antialiased bg-background text-foreground">
         <Suspense fallback={null}>{children}</Suspense>
-        {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>
   )

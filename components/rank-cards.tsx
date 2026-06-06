@@ -1,54 +1,82 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Crown, Users, Swords, Flame, Sparkles, UserPlus } from 'lucide-react'
+import { Crown, Shield, Star, Swords, UserCheck, Users } from 'lucide-react'
 import { RANKS } from '@/lib/site-config'
 
-const ICONS = [Crown, Users, Swords, Flame, Sparkles, UserPlus]
+const ICONS = [Crown, Shield, Star, Swords, UserCheck, Users]
+const LEVEL_COLORS = [
+  'from-yellow-500/20 to-primary/10 border-yellow-500/40',
+  'from-primary/20 to-primary/5 border-primary/50',
+  'from-orange-500/15 to-primary/5 border-orange-500/30',
+  'from-primary/15 to-primary/5 border-primary/35',
+  'from-slate-500/15 to-primary/5 border-slate-500/25',
+  'from-slate-700/15 to-transparent border-border',
+]
+
+const containerVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.12 } },
+}
+const cardVariants = {
+  hidden: { opacity: 0, x: -24 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
+}
 
 export function RankCards() {
   return (
-    <div className="mx-auto grid max-w-5xl gap-5 px-4 sm:grid-cols-2">
+    <motion.div
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      className="mx-auto max-w-4xl space-y-4 px-4"
+    >
       {RANKS.map((rank, i) => {
-        const Icon = ICONS[i] ?? Crown
-        const featured = i === 0
+        const Icon = ICONS[i] ?? Shield
+        const isTop = i < 2
+
         return (
           <motion.div
             key={rank.name}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.08, duration: 0.5 }}
-            className={`group relative overflow-hidden rounded-2xl border bg-card/60 p-6 backdrop-blur-md transition-all hover:box-glow ${
-              featured ? 'border-primary/60 sm:col-span-2 box-glow' : 'border-primary/25 hover:border-primary/50'
-            }`}
+            variants={cardVariants}
+            className={`group relative overflow-hidden rounded-xl border bg-gradient-to-r p-5 backdrop-blur-sm transition-all duration-300 hover:scale-[1.01] ${LEVEL_COLORS[i]} ${isTop ? 'box-glow' : ''}`}
           >
-            <div className="flex items-start justify-between gap-4">
-              <div className="flex items-center gap-3">
-                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-primary/40 bg-primary/10 text-primary">
-                  <Icon className="h-6 w-6" />
+            {/* Left accent bar */}
+            <div className={`absolute left-0 top-0 h-full w-1 bg-gradient-to-b ${isTop ? 'from-yellow-500/80 via-primary to-transparent' : 'from-primary/60 to-transparent'}`} />
+
+            <div className="flex items-start gap-5 pl-2">
+              {/* Level badge */}
+              <div className="flex flex-col items-center gap-1.5">
+                <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border ${isTop ? 'border-yellow-500/50 bg-yellow-500/10' : 'border-primary/30 bg-primary/8'}`}>
+                  <Icon className={`h-5 w-5 ${isTop ? 'text-yellow-500' : 'text-primary'}`} />
+                </div>
+                <span className={`font-heading text-[10px] font-bold tracking-widest ${isTop ? 'text-yellow-500/80' : 'text-primary/60'}`}>
+                  N{String(rank.level).padStart(2, '0')}
                 </span>
-                <div>
-                  <h3 className="font-heading text-xl font-bold tracking-wide text-foreground">{rank.name}</h3>
-                  <p className="text-sm text-primary/80">{rank.holder}</p>
+              </div>
+
+              {/* Content */}
+              <div className="flex-1 min-w-0">
+                <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-4">
+                  <h3 className="font-heading text-base font-black tracking-wide text-foreground sm:text-lg">
+                    {rank.name}
+                  </h3>
+                  <span className="inline-flex items-center gap-1 rounded-full border border-primary/20 bg-primary/5 px-2.5 py-0.5 font-heading text-[10px] tracking-wider text-primary/75">
+                    {rank.holder}
+                  </span>
+                </div>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                  {rank.description}
+                </p>
+                <div className="mt-3 flex items-center gap-2">
+                  <div className="h-px w-4 bg-primary/40" />
+                  <p className="text-xs italic text-muted-foreground/60">{rank.access}</p>
                 </div>
               </div>
-              <span className="font-heading text-3xl font-black text-primary/20">
-                {String(rank.level).padStart(2, '0')}
-              </span>
-            </div>
-
-            <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{rank.description}</p>
-
-            <div className="mt-4 border-t border-primary/15 pt-3">
-              <span className="font-heading text-[10px] tracking-wider text-muted-foreground/60">
-                CONDITIONS D&apos;ACCÈS
-              </span>
-              <p className="mt-1 text-sm text-foreground/90">{rank.access}</p>
             </div>
           </motion.div>
         )
       })}
-    </div>
+    </motion.div>
   )
 }

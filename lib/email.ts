@@ -7,10 +7,7 @@ const resend = new Resend(process.env.RESEND_API_KEY)
 const ADMIN_EMAIL = 'santanafamille50@gmail.com'
 
 export async function sendCandidateNotification(candidate: Candidate) {
-  if (!process.env.RESEND_API_KEY) {
-    console.log('[v0] RESEND_API_KEY missing, skipping email')
-    return
-  }
+  if (!process.env.RESEND_API_KEY) return
 
   const rows: [string, string | number | null][] = [
     ['Nom complet', candidate.full_name],
@@ -59,7 +56,7 @@ export async function sendCandidateNotification(candidate: Candidate) {
       subject: `Nouvelle candidature — ${candidate.full_name} (${candidate.pseudo})`,
       html,
     })
-  } catch (err) {
-    console.log('[v0] Email send failed:', err)
+  } catch {
+    // silently ignore email failures
   }
 }

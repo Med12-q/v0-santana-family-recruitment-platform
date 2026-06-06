@@ -3,7 +3,7 @@ import { createOpenAI } from '@ai-sdk/openai'
 import { SANTANA_KNOWLEDGE } from '@/lib/santana-knowledge'
 import { rateLimit, getClientIp } from '@/lib/rate-limit'
 
-export const maxDuration = 30
+export const runtime = 'edge'
 
 const openai = createOpenAI({ apiKey: process.env.OPENAI_API_KEY })
 

@@ -21,7 +21,6 @@ export async function adminLogin(password: string): Promise<{ ok: boolean; error
   }
 
   if (!verifyAdminPassword(password)) {
-    console.log('[v0] Failed admin login attempt from', ip)
     return { ok: false, error: 'Mot de passe incorrect.' }
   }
 

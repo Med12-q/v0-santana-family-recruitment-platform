@@ -74,8 +74,7 @@ export async function submitCandidature(data: CandidateInput): Promise<SubmitRes
     }
 
     return { ok: true }
-  } catch (err) {
-    console.log('[v0] submitCandidature error:', err)
+  } catch {
     return { ok: false, error: "Une erreur est survenue. Réessayez plus tard." }
   }
 }
