@@ -1,97 +1,90 @@
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { useEffect, useRef, useState } from 'react'
-import { Crown, ShieldCheck } from 'lucide-react'
+import { Crown, ArrowRight } from 'lucide-react'
 import { SITE } from '@/lib/site-config'
 
-const LEADER_TEXT =
-  "Lord Santana, purgeur de la deuxième génération, s'est distingué par sa bravoure et son parcours remarquable. Il a mis en place une famille d'élite de l'ombre appelée la SANTANA FAMILY. Surnommés les Démons de la Terreur, ils imposent le respect par leur discipline, leur détermination et leur cohésion."
-
-function useTypewriter(text: string, start: boolean, speed = 28) {
-  const [out, setOut] = useState('')
-  useEffect(() => {
-    if (!start) return
-    let i = 0
-    const id = setInterval(() => {
-      i++
-      setOut(text.slice(0, i))
-      if (i >= text.length) clearInterval(id)
-    }, speed)
-    return () => clearInterval(id)
-  }, [text, start, speed])
-  return out
-}
-
 export function LeaderSection() {
-  const ref = useRef<HTMLDivElement>(null)
-  const [inView, setInView] = useState(false)
-  const typed = useTypewriter(LEADER_TEXT, inView)
-
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true)
-          obs.disconnect()
-        }
-      },
-      { threshold: 0.3 },
-    )
-    obs.observe(el)
-    return () => obs.disconnect()
-  }, [])
-
   return (
-    <section ref={ref} className="relative mx-auto max-w-6xl px-4 py-20">
-      <div className="mb-12 text-center">
-        <p className="font-heading text-xs tracking-[0.4em] text-primary/70">LE CHEF SUPRÊME</p>
-        <h2 className="mt-2 font-heading text-3xl font-bold tracking-wider text-foreground sm:text-4xl">
-          Une vision. Une discipline. Une famille.
-        </h2>
+    <section className="px-4 py-24">
+      <div className="mx-auto max-w-6xl">
+        <div className="grid items-center gap-14 lg:grid-cols-2">
+          {/* Photo */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true }}
+            className="relative flex justify-center"
+          >
+            <div className="relative">
+              <div className="absolute inset-0 scale-110 rounded-2xl bg-primary/10 blur-3xl" />
+              <div className="relative h-80 w-72 overflow-hidden rounded-2xl border border-white/8 shadow-[0_20px_60px_rgba(0,0,0,0.6)]">
+                <Image
+                  src={SITE.leaderPhoto}
+                  alt="Lord Santana"
+                  fill
+                  className="object-cover object-top"
+                  sizes="288px"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+              </div>
+              <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 whitespace-nowrap rounded-full border border-primary/30 bg-[#05050a]/90 px-5 py-2 backdrop-blur-sm shadow-lg">
+                <Crown className="h-3.5 w-3.5 shrink-0 text-primary" />
+                <span className="text-xs font-semibold uppercase tracking-wider text-white">Chef Suprême</span>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Content */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true }}
+          >
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-primary">Le fondateur</p>
+            <h2 className="mt-3 font-heading text-4xl font-black text-white sm:text-5xl">Lord Santana</h2>
+            <div className="mt-2 flex items-center gap-3">
+              <div className="h-px w-12 bg-primary/40" />
+              <p className="text-sm text-gray-500">Leader de la 2ème Génération</p>
+            </div>
+
+            <p className="mt-6 text-gray-400 leading-relaxed">
+              Purgeur de la deuxième génération, Lord Santana s&apos;est distingué par sa bravoure
+              et son parcours remarquable. Il a fondé la SANTANA FAMILY avec une vision claire :
+              créer une organisation d&apos;élite où discipline, loyauté et excellence sont les
+              piliers fondamentaux.
+            </p>
+            <p className="mt-4 text-gray-400 leading-relaxed">
+              Sous sa direction, la famille est devenue une organisation respectée, dont les
+              membres imposent le respect par leur cohésion et leur détermination sans faille.
+            </p>
+
+            <div className="mt-8 flex gap-10 border-t border-white/5 pt-8">
+              {[
+                { v: '50+', l: 'Membres' },
+                { v: '5+', l: 'Années' },
+                { v: '6', l: 'Grades' },
+              ].map(s => (
+                <div key={s.l}>
+                  <p className="font-heading text-2xl font-black text-white">{s.v}</p>
+                  <p className="mt-0.5 text-xs uppercase tracking-wider text-gray-600">{s.l}</p>
+                </div>
+              ))}
+            </div>
+
+            <Link
+              href="/a-propos"
+              className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-primary transition-all hover:gap-3"
+            >
+              En savoir plus <ArrowRight className="h-4 w-4" />
+            </Link>
+          </motion.div>
+        </div>
       </div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-        className="grid gap-8 overflow-hidden rounded-2xl border border-primary/30 bg-card/70 p-6 backdrop-blur-md box-glow md:grid-cols-[320px_1fr] md:p-10"
-      >
-        <div className="relative mx-auto aspect-[3/4] w-full max-w-[320px] overflow-hidden rounded-xl border border-primary/40 box-glow">
-          <Image
-            src={SITE.leaderPhoto}
-            alt="Lord Santana, Fondateur et Chef Suprême"
-            fill
-            className="object-cover"
-          />
-          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background/90 to-transparent p-4">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/50 bg-primary/15 px-3 py-1 text-xs font-medium text-primary">
-              <ShieldCheck className="h-3.5 w-3.5" /> Leader de la 2ème Génération
-            </span>
-          </div>
-        </div>
-
-        <div className="flex flex-col justify-center">
-          <div className="flex items-center gap-2 text-primary">
-            <Crown className="h-5 w-5" />
-            <span className="font-heading text-xs tracking-[0.3em]">FONDATEUR &amp; CHEF SUPRÊME</span>
-          </div>
-          <h3 className="mt-2 font-heading text-3xl font-black tracking-wider text-foreground sm:text-4xl">
-            LORD <span className="text-primary text-glow">SANTANA</span>
-          </h3>
-
-          <p className="mt-6 min-h-[8rem] text-pretty text-base leading-relaxed text-muted-foreground">
-            {typed}
-            {typed.length < LEADER_TEXT.length && (
-              <span className="ml-0.5 inline-block h-5 w-0.5 animate-pulse bg-primary align-middle" />
-            )}
-          </p>
-        </div>
-      </motion.div>
     </section>
   )
 }

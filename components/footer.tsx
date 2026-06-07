@@ -1,105 +1,88 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import { Mail, ExternalLink } from 'lucide-react'
 import { NAV_LINKS, SITE } from '@/lib/site-config'
-import { Mail, ExternalLink, Shield } from 'lucide-react'
 
 export function Footer() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="relative z-10 border-t border-primary/20 bg-background/70 backdrop-blur-md">
-      {/* Top accent line */}
-      <div className="h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
-
-      <div className="mx-auto max-w-7xl px-4 py-14">
+    <footer className="relative z-10 border-t border-white/[0.06] bg-[#05050a]">
+      <div className="mx-auto max-w-7xl px-4 py-14 lg:px-8">
         <div className="grid gap-10 md:grid-cols-3 lg:grid-cols-4">
-          {/* Brand block */}
+          {/* Brand */}
           <div className="lg:col-span-2">
-            <Link href="/" className="inline-flex items-center gap-3 group">
-              <span className="relative flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full border border-primary/50 box-glow transition-all group-hover:border-primary/80">
-                <Image src={SITE.logo} alt="Logo SANTANA FAMILY" fill className="object-cover" />
-              </span>
-              <span className="font-heading text-base font-black tracking-widest text-foreground">
-                SANTANA<span className="text-primary text-glow"> FAMILY</span>
+            <Link href="/" className="inline-flex items-center gap-3">
+              <div className="relative h-9 w-9 overflow-hidden rounded-full border border-primary/40">
+                <Image src={SITE.logo} alt="SANTANA FAMILY" fill className="object-cover" sizes="36px" />
+              </div>
+              <span className="font-heading text-sm font-black tracking-[0.15em] text-white">
+                SANTANA<span className="text-primary"> FAMILY</span>
               </span>
             </Link>
-            <p className="mt-3 text-sm text-muted-foreground">{SITE.nickname}</p>
-            <p className="mt-3 max-w-xs text-sm italic text-primary/75 leading-relaxed">
+            <p className="mt-3 text-sm text-gray-500">{SITE.nickname}</p>
+            <p className="mt-3 max-w-xs text-sm italic text-gray-600 leading-relaxed">
               &ldquo;{SITE.slogan}&rdquo;
             </p>
-
-            {/* Trust badge */}
-            <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 py-1.5 text-xs text-muted-foreground/70">
-              <Shield className="h-3 w-3 text-primary/60" />
-              Recrutement officiel &amp; sécurisé
+            <div className="mt-5 flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-green-400" />
+              <span className="text-xs font-medium text-green-400">Recrutement ouvert</span>
             </div>
           </div>
 
           {/* Navigation */}
           <div>
-            <h4 className="font-heading text-xs font-semibold tracking-[0.3em] text-foreground uppercase">Navigation</h4>
-            <ul className="mt-5 flex flex-col gap-2.5">
+            <p className="mb-4 text-xs font-semibold uppercase tracking-wider text-gray-600">Navigation</p>
+            <div className="flex flex-col gap-2.5">
               {NAV_LINKS.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="group flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-primary"
-                  >
-                    <span className="h-px w-4 bg-primary/0 transition-all group-hover:w-6 group-hover:bg-primary/60" />
-                    {link.label}
-                  </Link>
-                </li>
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="text-sm text-gray-500 transition-colors hover:text-gray-300"
+                >
+                  {link.label}
+                </Link>
               ))}
-            </ul>
+            </div>
           </div>
 
           {/* Contact */}
           <div>
-            <h4 className="font-heading text-xs font-semibold tracking-[0.3em] text-foreground uppercase">Contact</h4>
-            <div className="mt-5 space-y-4">
-              <div>
-                <p className="text-xs text-muted-foreground/60 uppercase tracking-wider">E-mail officiel</p>
-                <a
-                  href={`mailto:${SITE.contactEmail}`}
-                  className="mt-1.5 flex items-center gap-1.5 text-sm text-primary hover:underline"
-                >
-                  <Mail className="h-3.5 w-3.5" />
-                  {SITE.contactEmail}
-                </a>
-              </div>
-              <div>
-                <p className="text-xs text-muted-foreground/60 uppercase tracking-wider">Groupe de test</p>
-                <a
-                  href={SITE.testGroupUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-1.5 flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors"
-                >
-                  <ExternalLink className="h-3.5 w-3.5" />
-                  Après candidature
-                </a>
-              </div>
-              <div className="pt-1">
-                <Link
-                  href="/administration"
-                  className="text-xs text-muted-foreground/40 transition-colors hover:text-muted-foreground/70"
-                >
-                  Administration →
-                </Link>
-              </div>
+            <p className="mb-4 text-xs font-semibold uppercase tracking-wider text-gray-600">Contact</p>
+            <div className="flex flex-col gap-3">
+              <a
+                href={`mailto:${SITE.contactEmail}`}
+                className="flex items-center gap-2 text-sm text-gray-500 transition-colors hover:text-gray-300"
+              >
+                <Mail className="h-3.5 w-3.5 shrink-0" />
+                {SITE.contactEmail}
+              </a>
+              <a
+                href={SITE.testGroupUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-sm text-gray-500 transition-colors hover:text-gray-300"
+              >
+                <ExternalLink className="h-3.5 w-3.5 shrink-0" />
+                Groupe d&apos;évaluation
+              </a>
             </div>
+            <Link
+              href="/recrutement"
+              className="mt-5 inline-block rounded-sm bg-primary px-5 py-2.5 text-xs font-semibold uppercase tracking-widest text-white transition-all hover:bg-primary/85"
+            >
+              Postuler
+            </Link>
           </div>
         </div>
-      </div>
 
-      {/* Bottom bar */}
-      <div className="border-t border-primary/10">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 py-5 text-xs text-muted-foreground/50 sm:flex-row">
-          <span>© {year} SANTANA FAMILY — Les Démons de la Terreur. Tous droits réservés.</span>
-          <div className="flex items-center gap-4">
-            <Link href="/reglement" className="hover:text-muted-foreground/80 transition-colors">Règlement</Link>
-            <Link href="/recrutement" className="hover:text-muted-foreground/80 transition-colors">Recrutement</Link>
-          </div>
+        <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-white/[0.05] pt-8 sm:flex-row">
+          <p className="text-xs text-gray-600">
+            © {year} SANTANA FAMILY — Tous droits réservés.
+          </p>
+          <p className="text-xs text-gray-700">
+            Plateforme officielle de recrutement
+          </p>
         </div>
       </div>
     </footer>

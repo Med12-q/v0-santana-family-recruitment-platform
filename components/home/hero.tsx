@@ -7,146 +7,98 @@ import { ArrowRight, ChevronDown } from 'lucide-react'
 import { SITE } from '@/lib/site-config'
 
 const STATS = [
-  { label: 'Membres actifs', value: '50+' },
-  { label: 'Années de discipline', value: '3+' },
-  { label: 'Taux de sélection', value: '12%' },
+  { value: '50+', label: 'Membres actifs' },
+  { value: '5+', label: "Années d'expérience" },
+  { value: '6', label: 'Niveaux de grade' },
+  { value: '24/7', label: 'Support IA' },
 ]
 
 export function Hero() {
   return (
-    <section className="relative flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center overflow-hidden px-4 py-20 text-center">
-      {/* Ambient background glows */}
-      <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute left-1/2 top-1/3 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/5 blur-[120px]" />
-        <div className="absolute left-1/4 bottom-1/4 h-[300px] w-[300px] rounded-full bg-primary/4 blur-[80px]" />
-        <div className="absolute right-1/4 top-1/4 h-[200px] w-[200px] rounded-full bg-primary/3 blur-[60px]" />
-      </div>
-
-      {/* Logo with cinematic entrance + halo + float */}
+    <section className="relative flex min-h-screen flex-col items-center justify-center px-4 py-20 text-center">
+      {/* Clan Emblem */}
       <motion.div
-        initial={{ opacity: 0, scale: 0.4, filter: 'blur(30px)' }}
-        animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-        transition={{ duration: 1.6, ease: [0.16, 1, 0.3, 1] }}
+        initial={{ opacity: 0, scale: 0.75 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
         className="relative mb-10"
       >
-        {/* Outer rotating ring */}
-        <div className="animate-spin-slow absolute -inset-6 rounded-full border border-primary/20" />
-        <div className="animate-spin-slow absolute -inset-10 rounded-full border border-primary/10" style={{ animationDirection: 'reverse', animationDuration: '30s' }} />
-
-        {/* Halo glow */}
-        <div className="animate-halo absolute inset-0 -z-10 rounded-full bg-primary/30 blur-[70px]" />
-
-        {/* Logo image */}
-        <div className="animate-float relative h-44 w-44 overflow-hidden rounded-full border-2 border-primary/70 box-glow-strong sm:h-56 sm:w-56">
+        <span className="absolute -inset-6 rounded-full border border-primary/10 animate-[spin_20s_linear_infinite]" />
+        <span className="absolute -inset-3 rounded-full border border-primary/20" />
+        <div className="relative h-56 w-56 overflow-hidden rounded-full border-2 border-primary/50 shadow-[0_0_80px_rgba(220,38,38,0.25),0_0_200px_rgba(220,38,38,0.08)]">
           <Image
             src={SITE.logo}
-            alt="Logo officiel de la SANTANA FAMILY"
+            alt="SANTANA FAMILY"
             fill
-            priority
             className="object-cover"
+            priority
+            sizes="224px"
           />
-          {/* Inner scanline overlay */}
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/30" />
         </div>
       </motion.div>
 
       {/* Title */}
       <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-        className="relative"
-      >
-        <h1 className="font-heading text-5xl font-black tracking-[0.15em] text-foreground sm:text-7xl md:text-8xl">
-          SANTANA{' '}
-          <span className="relative text-primary text-glow-strong">
-            FAMILY
-            {/* Shimmer effect on title */}
-            <span className="shimmer-line absolute inset-0 overflow-hidden" />
-          </span>
-        </h1>
-      </motion.div>
-
-      {/* Subtitle */}
-      <motion.p
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.8, duration: 0.8 }}
-        className="mt-4 font-heading text-base tracking-[0.45em] text-primary/85 sm:text-xl md:text-2xl animate-flicker"
-      >
-        LES DÉMONS DE LA TERREUR
-      </motion.p>
-
-      {/* Divider line */}
-      <motion.div
-        initial={{ scaleX: 0, opacity: 0 }}
-        animate={{ scaleX: 1, opacity: 1 }}
-        transition={{ delay: 1.0, duration: 0.8 }}
-        className="mt-6 h-px w-48 bg-gradient-to-r from-transparent via-primary/60 to-transparent"
-      />
-
-      {/* Slogan */}
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.1, duration: 1 }}
-        className="mt-6 max-w-lg text-balance text-base italic text-muted-foreground sm:text-lg"
-      >
-        &ldquo;{SITE.slogan}&rdquo;
-      </motion.p>
-
-      {/* CTA buttons */}
-      <motion.div
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.4, duration: 0.8 }}
-        className="mt-10 flex flex-col items-center gap-3 sm:flex-row"
+        transition={{ duration: 0.9, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+        className="space-y-3"
+      >
+        <h1 className="font-heading text-5xl font-black tracking-[0.12em] text-white sm:text-6xl md:text-7xl lg:text-8xl">
+          SANTANA<span className="text-primary"> FAMILY</span>
+        </h1>
+        <p className="text-sm font-semibold uppercase tracking-[0.35em] text-primary/70">
+          {SITE.nickname}
+        </p>
+        <p className="mx-auto mt-4 max-w-md text-base italic text-gray-500">
+          &ldquo;{SITE.slogan}&rdquo;
+        </p>
+      </motion.div>
+
+      {/* CTAs */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.6 }}
+        className="mt-10 flex flex-wrap items-center justify-center gap-4"
       >
         <Link
           href="/recrutement"
-          className="group inline-flex items-center gap-2 rounded-md border border-primary bg-primary px-9 py-4 font-heading text-sm font-bold tracking-widest text-primary-foreground transition-all hover:bg-primary/85 hover:scale-105 box-glow-strong"
+          className="inline-flex items-center gap-2 rounded-sm bg-primary px-8 py-3.5 text-sm font-semibold uppercase tracking-widest text-white transition-all duration-300 hover:bg-primary/85 hover:shadow-[0_0_28px_rgba(220,38,38,0.45)]"
         >
-          POSTULER MAINTENANT
-          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+          Postuler <ArrowRight className="h-4 w-4" />
         </Link>
         <Link
-          href="/hierarchie"
-          className="inline-flex items-center gap-2 rounded-md border border-primary/30 bg-transparent px-7 py-4 font-heading text-sm font-bold tracking-widest text-foreground/80 transition-all hover:border-primary/60 hover:text-foreground hover:bg-primary/10"
+          href="/a-propos"
+          className="inline-flex items-center gap-2 rounded-sm border border-white/15 px-8 py-3.5 text-sm font-medium uppercase tracking-widest text-gray-400 transition-all duration-300 hover:border-white/30 hover:text-white"
         >
-          VOIR LES GRADES
+          Découvrir
         </Link>
       </motion.div>
 
-      {/* Stats row */}
+      {/* Stats */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.8, duration: 0.8 }}
-        className="mt-16 grid grid-cols-3 gap-8 sm:gap-16"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 0.9 }}
+        className="mt-16 flex flex-wrap items-center justify-center gap-x-10 gap-y-6 border-t border-white/5 pt-10"
       >
-        {STATS.map((stat) => (
-          <div key={stat.label} className="text-center">
-            <div className="font-heading text-2xl font-black text-primary text-glow sm:text-3xl">
-              {stat.value}
-            </div>
-            <div className="mt-1 text-xs tracking-wider text-muted-foreground uppercase">
-              {stat.label}
-            </div>
+        {STATS.map((s, i) => (
+          <div key={i} className="text-center">
+            <p className="font-heading text-2xl font-black text-white">{s.value}</p>
+            <p className="mt-0.5 text-[11px] uppercase tracking-wider text-gray-600">{s.label}</p>
           </div>
         ))}
       </motion.div>
 
-      {/* Scroll indicator */}
+      {/* Scroll hint */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2.2, duration: 1 }}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1"
+        transition={{ delay: 1.4 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2"
       >
-        <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground/40">
-          Recrutement · Sécurisé · Structuré
-        </span>
-        <ChevronDown className="mt-1 h-4 w-4 text-muted-foreground/30 animate-bounce" />
+        <ChevronDown className="h-5 w-5 animate-bounce text-white/20" />
       </motion.div>
     </section>
   )
