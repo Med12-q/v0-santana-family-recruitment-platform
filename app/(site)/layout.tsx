@@ -4,7 +4,6 @@ import { Footer } from '@/components/footer'
 import { CyberBackground, ParticleField } from '@/components/background-fx'
 import { FloatingChat } from '@/components/floating-chat'
 
-export const runtime = 'edge'
 
 export default function SiteLayout({ children }: { children: ReactNode }) {
   return (

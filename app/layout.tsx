@@ -3,7 +3,6 @@ import { Orbitron, Rajdhani, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import { Suspense } from 'react'
 
-export const runtime = 'edge'
 
 const orbitron = Orbitron({
   variable: '--font-orbitron',

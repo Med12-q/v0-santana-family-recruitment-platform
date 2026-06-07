@@ -3,7 +3,6 @@ import { isAdminAuthenticated } from '@/lib/admin-auth'
 import { AdminLoginForm } from '@/components/admin/login-form'
 import { CyberBackground } from '@/components/background-fx'
 
-export const runtime = 'edge'
 export const metadata = { title: 'Administration — SANTANA FAMILY' }
 
 export default async function AdminLoginPage() {
